@@ -1,12 +1,9 @@
-import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/bloc/tvseries/tv_series_bloc.dart';
 import 'package:ditonton/presentation/bloc/tvseries/tv_series_event.dart';
 import 'package:ditonton/presentation/bloc/tvseries/tv_series_state.dart';
-import 'package:ditonton/presentation/provider/tvseries/airing_today_tv_notifier.dart';
 import 'package:ditonton/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 class AiringTodayPage extends StatefulWidget {
   static const ROUTE_NAME = '/airing-today';

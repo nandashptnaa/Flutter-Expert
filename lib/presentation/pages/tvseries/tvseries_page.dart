@@ -14,10 +14,8 @@ import 'package:ditonton/presentation/pages/tvseries/top_rated_tv_page.dart';
 import 'package:ditonton/presentation/pages/tvseries/tv_detail_page.dart';
 import 'package:ditonton/presentation/pages/tvseries/tv_on_the_air_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_page.dart';
-import 'package:ditonton/presentation/provider/tvseries/tv_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 class TvPage extends StatefulWidget {
   static const ROUTE_NAME = '/home-tvs';

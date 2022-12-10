@@ -33,22 +33,8 @@ import 'package:ditonton/presentation/bloc/movie/search_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/tvseries/search_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tvseries/tv_series_bloc.dart';
 import 'package:ditonton/presentation/bloc/tvseries/tv_series_detail_bloc.dart';
-import 'package:ditonton/presentation/provider/movie/movie_detail_notifier.dart';
-import 'package:ditonton/presentation/provider/movie/movie_list_notifier.dart';
-import 'package:ditonton/presentation/provider/movie/movie_search_notifier.dart';
-import 'package:ditonton/presentation/provider/movie/popular_movies_notifier.dart';
-import 'package:ditonton/presentation/provider/movie/top_rated_movies_notifier.dart';
-import 'package:ditonton/presentation/provider/tvseries/airing_today_tv_notifier.dart';
-import 'package:ditonton/presentation/provider/tvseries/top_rated_tv_notifier.dart';
-import 'package:ditonton/presentation/provider/tvseries/tv_detail_notifier.dart';
-import 'package:ditonton/presentation/provider/tvseries/tv_list_notifier.dart';
-import 'package:ditonton/presentation/provider/tvseries/on_the_air_tv_notifier.dart';
-import 'package:ditonton/presentation/provider/tvseries/popular_tv_notifier.dart';
-import 'package:ditonton/presentation/provider/tvseries/tv_search_notifier.dart';
-import 'package:ditonton/presentation/provider/tvseries/watchlist_tv_notifier.dart';
-import 'package:ditonton/presentation/provider/movie/watchlist_movie_notifier.dart';
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart' as http;
 
 import 'presentation/bloc/movie/movie_detail_bloc.dart';
 import 'presentation/bloc/movie/movie_list_bloc.dart';
@@ -173,7 +159,7 @@ void init() {
   // helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
   locator.registerLazySingleton<DatabaseHelperTvSeries>(() => DatabaseHelperTvSeries());
-
-  // external
-  locator.registerLazySingleton(() => HttpSSLPinning.client);
+  
+  // locator.registerLazySingleton(() => HttpSSLPinning.client);
+  locator.registerLazySingleton(() => http.Client());
 }

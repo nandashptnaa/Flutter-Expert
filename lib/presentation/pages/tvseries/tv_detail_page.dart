@@ -11,11 +11,9 @@ import 'package:ditonton/presentation/bloc/tvseries/tv_series_detail_event.dart'
 import 'package:ditonton/presentation/bloc/tvseries/tv_series_detail_state.dart';
 import 'package:ditonton/presentation/bloc/tvseries/tv_series_event.dart';
 import 'package:ditonton/presentation/bloc/tvseries/tv_series_state.dart';
-import 'package:ditonton/presentation/provider/tvseries/tv_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 
 class TvDetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/detail-tv';

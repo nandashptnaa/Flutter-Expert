@@ -3,7 +3,6 @@ import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/bloc/tvseries/search_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tvseries/search_tv_event.dart';
 import 'package:ditonton/presentation/bloc/tvseries/search_tv_state.dart';
-import 'package:ditonton/presentation/provider/tvseries/tv_search_notifier.dart';
 import 'package:ditonton/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

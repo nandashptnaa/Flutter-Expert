@@ -107,8 +107,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
   
   @override
-  Future<TvDetailResponse> getTvSeriesDetail(int id) async{
-    // TODO: implement getDetailTv
+  Future<TvDetailResponse> getTvSeriesDetail(int id) async{    
     final response = await client.get(Uri.parse('$BASE_URL/tv/$id?$API_KEY'));
     if(response.statusCode == 200){
       return TvDetailResponse.fromJson(json.decode(response.body));

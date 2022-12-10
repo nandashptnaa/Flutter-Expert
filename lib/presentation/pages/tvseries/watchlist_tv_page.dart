@@ -1,8 +1,10 @@
-import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/utils.dart';
-import 'package:ditonton/presentation/provider/tvseries/watchlist_tv_notifier.dart';
 import 'package:ditonton/presentation/widgets/tv_card.dart';
+import 'package:ditonton/presentation/bloc/tvseries/tv_series_bloc.dart' as tvblloc;
+import 'package:ditonton/presentation/bloc/tvseries/tv_series_state.dart' as tvblloc;
+import 'package:ditonton/presentation/bloc/tvseries/tv_series_event.dart' as tvblloc;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class WatchlistTvPage extends StatefulWidget {
@@ -20,7 +22,9 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.microtask(() => Provider.of<WatchlistTvNotifier>(context, listen: false).fetchWatchlistTv());
+    Future.microtask(() => {context
+          .read<tvblloc.WatchlistTvseriesBloc>()
+          .add(tvblloc.FetchTvseriesData())});
   }
 
   @override
@@ -31,15 +35,15 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
   }
 
   @override
-  void didPopNext() {
-    // TODO: implement didPopNext
+  void didPopNext() {    
     super.didPopNext();
-    Provider.of<WatchlistTvNotifier>(context, listen: false).fetchWatchlistTv();
+    context
+          .read<tvblloc.WatchlistTvseriesBloc>()
+          .add(tvblloc.FetchTvseriesData());
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
+  void dispose() {    
     super.dispose();
     routeObserver.unsubscribe(this);
 
@@ -54,23 +58,26 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
     
     body: Padding(
       padding: const EdgeInsets.all(8),
-      child: Consumer<WatchlistTvNotifier>(
-        builder: (context, value, child){
-          if(value.watchlistStateTv == RequestState.Loading){
-            return const Center(child: CircularProgressIndicator(),);
-          }else if(value.watchlistStateTv == RequestState.Loaded){
+      child: BlocBuilder<tvblloc.WatchlistTvseriesBloc, tvblloc.TvSeriesState>(
+        builder: (context, state) {
+          if (state is tvblloc.LoadingTvData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is tvblloc.LoadedTvData) {
             return ListView.builder(
-              itemCount: value.watchlistTv.length,
-              itemBuilder: (context, index){
-                final tvSeries = value.watchlistTv[index];
-                return TvSeriesCard(tvSeries);
+              itemBuilder: (context, index) {
+                final tv = state.result[index];
+                return TvSeriesCard(tv);
               },
+              itemCount: state.result.length,
             );
-          }else{
+          } else if (state is tvblloc.ErrorTvData) {
             return Center(
-              key: const Key('error_message'),
-              child: Text(value.message),
+              child: Text(state.message),
             );
+          } else {
+            return Container();
           }
         },
       ),)

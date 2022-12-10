@@ -1,7 +1,11 @@
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/presentation/bloc/tvseries/tv_series_bloc.dart';
+import 'package:ditonton/presentation/bloc/tvseries/tv_series_event.dart';
+import 'package:ditonton/presentation/bloc/tvseries/tv_series_state.dart';
 import 'package:ditonton/presentation/provider/tvseries/airing_today_tv_notifier.dart';
 import 'package:ditonton/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class AiringTodayPage extends StatefulWidget {
@@ -17,9 +21,7 @@ class _AiringTodayPageState extends State<AiringTodayPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TvAiringTodayNotifier>(context, listen: false)
-            .fetchAiringToday());
+    Future.microtask(() => context.read<TvSeriesAiringTodayBloc>().add(const FetchTvseriesData()));
   }
 
   @override
@@ -30,28 +32,30 @@ class _AiringTodayPageState extends State<AiringTodayPage> {
       ),
       body: Padding(
           padding: const EdgeInsets.all(8),
-          child: Consumer<TvAiringTodayNotifier>(
-            builder: (context, value, child) {
-              if (value.state == RequestState.Loading) {
-                return Center(
-                  child: const CircularProgressIndicator(),
+          child: BlocBuilder<TvSeriesAiringTodayBloc, TvSeriesState>(
+            builder: (context, state) {
+              if (state is LoadingTvData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
-              } else if (value.state == RequestState.Loaded) {
+              } else if (state is LoadedTvData) {
+                final result = state.result;
                 return ListView.builder(
-                  itemCount: value.airingToday.length,
                   itemBuilder: (context, index) {
-                    final airingToday = value.airingToday[index];
-                    return TvSeriesCard(airingToday);
+                    final tvseries = result[index];
+                    return TvSeriesCard(tvseries);
                   },
+                  itemCount: result.length,
+                );
+              } else if (state is ErrorTvData) {
+                return Center(
+                  child: Text(state.message),
                 );
               } else {
-                return Center(
-                  key: const Key('error_message'),
-                  child: Text(value.message),
-                );
+                return Container();
               }
             },
-          )),
+          ),),
     );
   }
 }

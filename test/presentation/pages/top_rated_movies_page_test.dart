@@ -1,35 +1,43 @@
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/movie/movie.dart';
+import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:ditonton/presentation/bloc/movie/movie_list_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie/movie_list_event.dart';
+import 'package:ditonton/presentation/bloc/movie/movie_list_state.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
-import 'package:ditonton/presentation/provider/movie/top_rated_movies_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
 
-import 'top_rated_movies_page_test.mocks.dart';
+import '../../dummy_data/dummy_objects.dart';
 
-@GenerateMocks([TopRatedMoviesNotifier])
+class MockTopRatedMovieBloc extends MockBloc<MovieListEvent, MovieListState> implements TopRatedMovieBloc {}
+class MovieStateFake extends Fake implements MovieListState {}
+class MovieEventFake extends Fake implements MovieListEvent {}
+
 void main() {
-  late MockTopRatedMoviesNotifier mockNotifier;
+  late MockTopRatedMovieBloc mockBloc;
+
+  setUpAll(() {
+    registerFallbackValue(MovieEventFake());
+    registerFallbackValue(MovieStateFake());
+  });
 
   setUp(() {
-    mockNotifier = MockTopRatedMoviesNotifier();
+    mockBloc = MockTopRatedMovieBloc();
   });
 
   Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<TopRatedMoviesNotifier>.value(
-      value: mockNotifier,
+    return BlocProvider<TopRatedMovieBloc>.value(
+      value: mockBloc,
       child: MaterialApp(
         home: body,
       ),
     );
   }
 
-  testWidgets('Page should display progress bar when loading',
+  testWidgets('Page should display progress bar when loading movie data',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loading);
+    when(() => mockBloc.state).thenReturn(LoadingData());
 
     final progressFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
@@ -40,10 +48,9 @@ void main() {
     expect(progressFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display when data is loaded',
+  testWidgets('Page should display when data is loaded movie',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.movies).thenReturn(<Movie>[]);
+    when(() => mockBloc.state).thenReturn(MovieListHasData(testMovieList));
 
     final listViewFinder = find.byType(ListView);
 
@@ -52,15 +59,30 @@ void main() {
     expect(listViewFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display text with message when Error',
+  testWidgets('Page should not display progressbar and listview when Empty movie data',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Error);
-    when(mockNotifier.message).thenReturn('Error message');
+    when(() => mockBloc.state).thenReturn(EmptyData());
 
-    final textFinder = find.byKey(Key('error_message'));
+    final progressBarFinder = find.byType(CircularProgressIndicator);
+    final listViewFinder = find.byType(ListView);
 
     await tester.pumpWidget(_makeTestableWidget(TopRatedMoviesPage()));
 
-    expect(textFinder, findsOneWidget);
+    expect(progressBarFinder, findsNothing);
+    expect(listViewFinder, findsNothing);
+  });
+
+  
+  testWidgets('Page should not display progressbar and listview when Error',
+      (WidgetTester tester) async {
+    when(() => mockBloc.state).thenReturn(ErrorData('Error message'));
+
+    final progressBarFinder = find.byType(CircularProgressIndicator);
+    final listViewFinder = find.byType(ListView);
+
+    await tester.pumpWidget(_makeTestableWidget(TopRatedMoviesPage()));
+
+    expect(progressBarFinder, findsNothing);
+    expect(listViewFinder, findsNothing);
   });
 }

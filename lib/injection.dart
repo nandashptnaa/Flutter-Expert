@@ -35,7 +35,6 @@ import 'package:ditonton/presentation/bloc/tvseries/tv_series_bloc.dart';
 import 'package:ditonton/presentation/bloc/tvseries/tv_series_detail_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
-
 import 'presentation/bloc/movie/movie_detail_bloc.dart';
 import 'presentation/bloc/movie/movie_list_bloc.dart';
 
@@ -160,6 +159,7 @@ void init() {
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
   locator.registerLazySingleton<DatabaseHelperTvSeries>(() => DatabaseHelperTvSeries());
   
-  // locator.registerLazySingleton(() => HttpSSLPinning.client);
-  locator.registerLazySingleton(() => http.Client());
+  
+  locator.registerLazySingleton(() => HttpSSLPinning.client);
+  // locator.registerLazySingleton(() => http.Client());
 }

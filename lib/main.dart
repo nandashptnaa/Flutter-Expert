@@ -34,11 +34,12 @@ import 'package:ditonton/injection.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();  
+  await HttpSSLPinning.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-  await HttpSSLPinning.init();
+  
   di.init();
   runApp(MyApp());
 }

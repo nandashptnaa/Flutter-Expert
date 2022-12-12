@@ -14,17 +14,17 @@ class Shared {
       List<int> certFileBytes = [];
 
       if (isTestMode) {
-        certFileBytes = utf8.encode(_certificatedString);
+        certFileBytes = utf8.encode(cert);
       } else {
         try {
           certFileBytes =
-              (await rootBundle.load('certificates/cert_tmbd.pem'))
+              (await rootBundle.load('certificates/_.themoviedb.org.pem'))
                   .buffer
                   .asInt8List();
-          log('Successfully access load certificate!');
+          log('Successfully access and load certificate.pem file!');
         } catch (e) {
-          certFileBytes = utf8.encode(_certificatedString);
-          log('Error access load certificate file.\n${e.toString()}');
+          certFileBytes = utf8.encode(cert);
+          log('Error access and load certificate.pem file.\n${e.toString()}');
         }
       }
 
@@ -56,7 +56,7 @@ class Shared {
   }
 }
 
-const _certificatedString = """-----BEGIN CERTIFICATE-----
+const cert = """-----BEGIN CERTIFICATE-----
 MIIF5zCCBM+gAwIBAgIQAdKnBRs48TrGZbcfFRKNgDANBgkqhkiG9w0BAQsFADBG
 MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRUwEwYDVQQLEwxTZXJ2ZXIg
 Q0EgMUIxDzANBgNVBAMTBkFtYXpvbjAeFw0yMTEwMjEwMDAwMDBaFw0yMjExMTgy
@@ -89,4 +89,5 @@ AAHoVgjJSWWhy+t66cPauipX2dR0b4Ul0cz42aRlmpExJwRqm7jCtpaJU3nuxOwN
 jia+Kff2MpLspB3nHmHOZ2gvwU05oiZQvnranwshboDhCDV3ucFX4IKPr74+1P8l
 DUpiVEdsyxDA9Sbkc2QS57dWiD0Ju55Sxhhd1uSHi4aqKaFpAA4XZr4edUwWFE4c
 4JJi1ufB/lOcf+G5uV2HrO27/FScF/8dZyzy
------END CERTIFICATE-----""";
+-----END CERTIFICATE-----
+""";

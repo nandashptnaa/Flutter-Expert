@@ -21,10 +21,10 @@ class Shared {
               (await rootBundle.load('certificates/cert_tmbd.pem'))
                   .buffer
                   .asInt8List();
-          log('Successfully access and load certificate.pem file!');
+          log('Successfully access load certificate!');
         } catch (e) {
           certFileBytes = utf8.encode(_certificatedString);
-          log('Error access and load certificate.pem file.\n${e.toString()}');
+          log('Error access load certificate file.\n${e.toString()}');
         }
       }
 

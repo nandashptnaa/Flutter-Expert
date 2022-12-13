@@ -34,10 +34,10 @@ void main() {
           .thenAnswer((_) async => Right([testWatchlistTvSeries]));
       return watchlistBloc;
     },
-    act: (bloc) => bloc.add(FetchTvseriesData()),
+    act: (bloc) => bloc.add(FetchTvSeriesData()),
     expect: () => [
       LoadingTvData(),
-      LoadedTvData([testWatchlistTvSeries]),
+      TvHasData([testWatchlistTvSeries]),
     ],
     verify: (bloc) {
       verify(mockGetWatchlistTvseries.execute());
@@ -51,7 +51,7 @@ void main() {
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
       return watchlistBloc;
     },
-    act: (bloc) => bloc.add(FetchTvseriesData()),
+    act: (bloc) => bloc.add(FetchTvSeriesData()),
     expect: () => [
       LoadingTvData(),
       ErrorTvData('Server Failure'),
@@ -68,7 +68,7 @@ void main() {
           (_) async => Left(ConnectionFailure('Connection Failure')));
       return watchlistBloc;
     },
-    act: (bloc) => bloc.add(FetchTvseriesData()),
+    act: (bloc) => bloc.add(FetchTvSeriesData()),
     expect: () => [
       LoadingTvData(),
       ErrorTvData('Connection Failure'),
@@ -85,7 +85,7 @@ void main() {
           (_) async => Left(DatabaseFailure('Database Failure')));
       return watchlistBloc;
     },
-    act: (bloc) => bloc.add(FetchTvseriesData()),
+    act: (bloc) => bloc.add(FetchTvSeriesData()),
     expect: () => [
       LoadingTvData(),
       ErrorTvData('Database Failure'),

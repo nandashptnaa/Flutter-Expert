@@ -4,16 +4,16 @@ abstract class TvSeriesEvent extends Equatable {
   const TvSeriesEvent();
 }
 
-class FetchTvseriesData extends TvSeriesEvent {
-  const FetchTvseriesData();
+class FetchTvSeriesData extends TvSeriesEvent {
+  const FetchTvSeriesData();
 
   @override
   List<Object> get props => [];
 }
 
-class FetchTvseriesDataWithId extends TvSeriesEvent {
+class FetchTvSeriesDataWithId extends TvSeriesEvent {
   final int id;
-  const FetchTvseriesDataWithId(this.id);
+  const FetchTvSeriesDataWithId(this.id);
 
   @override
   List<Object> get props => [id];

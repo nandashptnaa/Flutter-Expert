@@ -166,7 +166,7 @@ final testTvCacheMap = {
   'name': 'Breaking Bad',
 };
 
-final testTvDetailResponse = TvDetailResponse(
+final testTvDetailResponse = TvDetailResponseModel(
   seasons: [
     TvSeasonModel(
       id: 3627, 

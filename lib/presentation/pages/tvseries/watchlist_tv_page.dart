@@ -1,8 +1,8 @@
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/widgets/tv_card.dart';
-import 'package:ditonton/presentation/bloc/tvseries/tv_series_bloc.dart' as tvblloc;
-import 'package:ditonton/presentation/bloc/tvseries/tv_series_state.dart' as tvblloc;
-import 'package:ditonton/presentation/bloc/tvseries/tv_series_event.dart' as tvblloc;
+import 'package:ditonton/presentation/bloc/tvseries/tv_series_bloc.dart' as tvSeriesBloc;
+import 'package:ditonton/presentation/bloc/tvseries/tv_series_state.dart' as tvSeriesBloc;
+import 'package:ditonton/presentation/bloc/tvseries/tv_series_event.dart' as tvSeriesBloc;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +23,8 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
     // TODO: implement initState
     super.initState();
     Future.microtask(() => {context
-          .read<tvblloc.WatchlistTvseriesBloc>()
-          .add(tvblloc.FetchTvseriesData())});
+          .read<tvSeriesBloc.WatchlistTvseriesBloc>()
+          .add(tvSeriesBloc.FetchTvSeriesData())});
   }
 
   @override
@@ -38,8 +38,8 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
   void didPopNext() {    
     super.didPopNext();
     context
-          .read<tvblloc.WatchlistTvseriesBloc>()
-          .add(tvblloc.FetchTvseriesData());
+          .read<tvSeriesBloc.WatchlistTvseriesBloc>()
+          .add(tvSeriesBloc.FetchTvSeriesData());
   }
 
   @override
@@ -58,13 +58,13 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
     
     body: Padding(
       padding: const EdgeInsets.all(8),
-      child: BlocBuilder<tvblloc.WatchlistTvseriesBloc, tvblloc.TvSeriesState>(
+      child: BlocBuilder<tvSeriesBloc.WatchlistTvseriesBloc, tvSeriesBloc.TvSeriesState>(
         builder: (context, state) {
-          if (state is tvblloc.LoadingTvData) {
+          if (state is tvSeriesBloc.LoadingTvData) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is tvblloc.LoadedTvData) {
+          } else if (state is tvSeriesBloc.TvHasData) {
             return ListView.builder(
               itemBuilder: (context, index) {
                 final tv = state.result[index];
@@ -72,7 +72,7 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
               },
               itemCount: state.result.length,
             );
-          } else if (state is tvblloc.ErrorTvData) {
+          } else if (state is tvSeriesBloc.ErrorTvData) {
             return Center(
               child: Text(state.message),
             );

@@ -13,8 +13,8 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final SaveWatchlist saveWatchlistMovie;
   final RemoveWatchlist removeWatchlistMovie;
 
-  static const watchlistAddSuccessMessage = 'Added to Watchlist';
-  static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
+  static const watchlistAddSuccessMessage = 'Added to Movie Watchlist';
+  static const watchlistRemoveSuccessMessage = 'Removed from Movie Watchlist';
 
   MovieDetailBloc({
     required this.getMovieDetail,
@@ -30,16 +30,16 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
         (failure) async {
           emit(state.copyWith(movieDetailState: RequestState.Error));
         },
-        (movie) async {
+        (movieMessage) async {
           emit(state.copyWith(
             movieDetailState: RequestState.Loaded,
-            movieDetail: movie,
+            movieDetail: movieMessage,
           ));
         },
       );
     });
     on<AddMovieWatchlist>((event, emit) async {
-      final result = await saveWatchlistMovie.execute(event.movieDetail);
+      final result = await saveWatchlistMovie.execute(event.movieDetailEvent);
 
       result.fold((failure) {
         emit(state.copyWith(watchlistMovie: failure.message));
@@ -47,7 +47,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
         emit(state.copyWith(watchlistMovie: successMessage));
       });
 
-      add(WatchlistMovieStatus(event.movieDetail.id));
+      add(WatchlistMovieStatus(event.movieDetailEvent.id));
     });
     on<RemoveMovieWatchlist>((event, emit) async {
       final result = await removeWatchlistMovie.execute(event.movieDetail);

@@ -22,7 +22,6 @@ class ErrorData extends MovieListState {
 
 class MovieListHasData extends MovieListState {
   final List<Movie> result;
-
   const MovieListHasData(this.result);
 
   @override

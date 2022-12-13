@@ -18,7 +18,7 @@ class _TvOnTheAirPageState extends State<TvOnTheAirPage> {
   @override
   void initState() {    
     super.initState();
-    Future.microtask(() => context.read<TvSeriesOnTheAirBloc>().add(const FetchTvseriesData()));
+    Future.microtask(() => context.read<TvSeriesOnTheAirBloc>().add(const FetchTvSeriesData()));
   }
 
   @override
@@ -35,7 +35,7 @@ class _TvOnTheAirPageState extends State<TvOnTheAirPage> {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (state is LoadedTvData) {
+              } else if (state is TvHasData) {
                 final result = state.result;
                 return ListView.builder(
                   itemBuilder: (context, index) {

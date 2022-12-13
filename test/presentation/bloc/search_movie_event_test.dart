@@ -3,6 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('when the props are the same as the input do a check!', () {
-    expect(['Hail'], OnMovieQueryChanged('Hail').props);
+    expect(['Hail'], MovieQueryChanged('Hail').props);
   });
 }

@@ -8,7 +8,7 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
   final SearchMovies _searchMovies;
 
   SearchMovieBloc(this._searchMovies) : super(SearchMovieEmpty()) {
-    on<OnMovieQueryChanged>((event, emit) async {
+    on<MovieQueryChanged>((event, emit) async {
       final query = event.query;
 
       emit(SearchMovieLoading());
@@ -22,7 +22,7 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
           emit(SearchMovieHasData(searchMoviedata));
         },
       );
-    }, transformer: debounce(const Duration(milliseconds: 500)));
+    }, transformer: debounce(const Duration(milliseconds: 300)));
   }
 
   EventTransformer<T> debounce<T>(Duration duration) {

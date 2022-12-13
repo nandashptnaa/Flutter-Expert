@@ -14,11 +14,11 @@ class FetchMovieDetailById extends MovieDetailEvent {
 }
 
 class AddMovieWatchlist extends MovieDetailEvent {
-  final MovieDetail movieDetail;
-  AddMovieWatchlist(this.movieDetail);
+  final MovieDetail movieDetailEvent;
+  AddMovieWatchlist(this.movieDetailEvent);
 
   @override
-  List<Object> get props => [movieDetail];
+  List<Object> get props => [movieDetailEvent];
 }
 
 class WatchlistMovieStatus extends MovieDetailEvent {

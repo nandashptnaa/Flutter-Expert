@@ -36,7 +36,7 @@ void main() {
     mockRemoveWatchlist = MockRemoveWatchlistTvseries();
     detailBloc = TvDetailBloc(
       getTvseriesDetail: mockGetTvseriesDetail,
-      getWatchListStatus: mockGetWatchlistStatus,
+      getTvWatchListStatus: mockGetWatchlistStatus,
       saveWatchlist: mockSaveWatchlist,
       removeWatchlist: mockRemoveWatchlist,
     );

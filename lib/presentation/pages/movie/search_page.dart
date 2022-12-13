@@ -22,7 +22,7 @@ class SearchPage extends StatelessWidget {
           children: [
             TextField(
               onSubmitted: (query) {
-                context.read<SearchMovieBloc>().add(OnMovieQueryChanged(query));
+                context.read<SearchMovieBloc>().add(MovieQueryChanged(query));
               },
               decoration: InputDecoration(
                 hintText: 'Search title',

@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('when the props are the same as the input do a check!', () {
-    expect([], const FetchTvseriesData().props);
-    expect([1], const FetchTvseriesDataWithId(1).props);
+    expect([], const FetchTvSeriesData().props);
+    expect([1], const FetchTvSeriesDataWithId(1).props);
   });
 }

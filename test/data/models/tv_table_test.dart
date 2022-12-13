@@ -5,12 +5,7 @@ import '../../dummy_data/dummy_objects.dart';
 void main() {
   group('toJson', () {
     test('should return a JSON map containing proper data', () async {
-      // arrange
-
-      // act
       final result = testTvCache.toJson();
-
-      // assert
       expect(result, testTvCacheMap);
     });
   });

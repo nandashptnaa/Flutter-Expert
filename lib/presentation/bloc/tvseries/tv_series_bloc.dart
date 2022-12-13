@@ -13,7 +13,7 @@ class TvSeriesAiringTodayBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
   final GetAiringTodayTvSeries _getAiringTodayTvseries;
 
   TvSeriesAiringTodayBloc(this._getAiringTodayTvseries) : super(EmptyTvData()) {
-    on<FetchTvseriesData>((event, emit) async {
+    on<FetchTvSeriesData>((event, emit) async {
       emit(LoadingTvData());
       final result = await _getAiringTodayTvseries.execute();
 
@@ -22,7 +22,7 @@ class TvSeriesAiringTodayBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
           emit(ErrorTvData(failure.message));
         },
         (data) {
-          emit(LoadedTvData(data));
+          emit(TvHasData(data));
         },
       );
     });
@@ -33,7 +33,7 @@ class TvSeriesOnTheAirBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
   final GetOnTheAirTvSeries _getOnTheAirTvseries;
 
   TvSeriesOnTheAirBloc(this._getOnTheAirTvseries) : super(EmptyTvData()) {
-    on<FetchTvseriesData>((event, emit) async {
+    on<FetchTvSeriesData>((event, emit) async {
       emit(LoadingTvData());
       final result = await _getOnTheAirTvseries.execute();
 
@@ -41,18 +41,18 @@ class TvSeriesOnTheAirBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
         (failure) {
           emit(ErrorTvData(failure.message));
         },
-        (data) {
-          emit(LoadedTvData(data));
+        (messageTv) {
+          emit(TvHasData(messageTv));
         },
       );
     });
   }
 }
 
-class PopularTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
+class PopularTvBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
   final GetPopularTvSeries _getPopularTvseries;
-  PopularTvseriesBloc(this._getPopularTvseries) : super(EmptyTvData()) {
-    on<FetchTvseriesData>((event, emit) async {
+  PopularTvBloc(this._getPopularTvseries) : super(EmptyTvData()) {
+    on<FetchTvSeriesData>((event, emit) async {
       emit(LoadingTvData());
       final result = await _getPopularTvseries.execute();
 
@@ -61,7 +61,7 @@ class PopularTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
           emit(ErrorTvData(failure.message));
         },
         (data) {
-          emit(LoadedTvData(data));
+          emit(TvHasData(data));
         },
       );
     });
@@ -71,7 +71,7 @@ class PopularTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
 class TopRatedTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
   final GetTopRatedTvSeries _getTopRatedTvSeries;
   TopRatedTvseriesBloc(this._getTopRatedTvSeries) : super(EmptyTvData()) {
-    on<FetchTvseriesData>((event, emit) async {
+    on<FetchTvSeriesData>((event, emit) async {
       emit(LoadingTvData());
       final result = await _getTopRatedTvSeries.execute();
 
@@ -80,7 +80,7 @@ class TopRatedTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
           emit(ErrorTvData(failure.message));
         },
         (data) {
-          emit(LoadedTvData(data));
+          emit(TvHasData(data));
         },
       );
     });
@@ -90,7 +90,7 @@ class TopRatedTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
 class WatchlistTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
   final GetWatchlistTvSeries _getWatchlistTvSeries;
   WatchlistTvseriesBloc(this._getWatchlistTvSeries) : super(EmptyTvData()) {
-    on<FetchTvseriesData>((event, emit) async {
+    on<FetchTvSeriesData>((event, emit) async {
       emit(LoadingTvData());
       final result = await _getWatchlistTvSeries.execute();
 
@@ -99,7 +99,7 @@ class WatchlistTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
           emit(ErrorTvData(failure.message));
         },
         (data) {
-          emit(LoadedTvData(data));
+          emit(TvHasData(data));
         },
       );
     });
@@ -112,7 +112,7 @@ class RecommendationTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
   RecommendationTvseriesBloc(
     this._getTvSeriesRecommendations,
   ) : super(EmptyTvData()) {
-    on<FetchTvseriesDataWithId>((event, emit) async {
+    on<FetchTvSeriesDataWithId>((event, emit) async {
       final id = event.id;
       emit(LoadingTvData());
       final result = await _getTvSeriesRecommendations.execute(id);
@@ -122,7 +122,7 @@ class RecommendationTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
           emit(ErrorTvData(failure.message));
         },
         (data) {
-          emit(LoadedTvData(data));
+          emit(TvHasData(data));
         },
       );
     });

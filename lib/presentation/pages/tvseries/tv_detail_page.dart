@@ -31,7 +31,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
     Future.microtask(() {
       context
           .read<RecommendationTvseriesBloc>()
-          .add(FetchTvseriesDataWithId(widget.id));
+          .add(FetchTvSeriesDataWithId(widget.id));
       context.read<TvDetailBloc>().add(FetchTvseriesDetailById(widget.id));
       context.read<TvDetailBloc>().add(LoadTvWatchlistStatus(widget.id));
     });
@@ -190,7 +190,7 @@ class ContentDetails extends StatelessWidget {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
-                                } else if (state is LoadedTvData) {
+                                } else if (state is TvHasData) {
                                   final result = state.result;
                                   return SizedBox(
                                     height: 150,

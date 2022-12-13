@@ -31,10 +31,10 @@ class _TvPageState extends State<TvPage> {
   void initState() {
     super.initState();
     Future.microtask(() => {
-      context.read<TvSeriesAiringTodayBloc>().add(const FetchTvseriesData()),
-      context.read<TvSeriesOnTheAirBloc>().add(const FetchTvseriesData()),
-      context.read<PopularTvseriesBloc>().add(const FetchTvseriesData()),
-      context.read<TopRatedTvseriesBloc>().add(const FetchTvseriesData()),});
+      context.read<TvSeriesAiringTodayBloc>().add(const FetchTvSeriesData()),
+      context.read<TvSeriesOnTheAirBloc>().add(const FetchTvSeriesData()),
+      context.read<PopularTvBloc>().add(const FetchTvSeriesData()),
+      context.read<TopRatedTvseriesBloc>().add(const FetchTvSeriesData()),});
   }
 
   @override
@@ -110,7 +110,7 @@ class _TvPageState extends State<TvPage> {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is LoadedTvData) {
+                  } else if (state is TvHasData) {
                     final result = state.result;
                     return TvList(result);
                   } else {
@@ -124,13 +124,13 @@ class _TvPageState extends State<TvPage> {
                   Navigator.pushNamed(context, PopularTvPage.ROUTE_NAME);
                 }
               ),
-              BlocBuilder<PopularTvseriesBloc, TvSeriesState>(
+              BlocBuilder<PopularTvBloc, TvSeriesState>(
                 builder: (context, state) {
                   if (state is LoadingTvData) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is LoadedTvData) {
+                  } else if (state is TvHasData) {
                     final result = state.result;
                     return TvList(result);
                   } else {
@@ -150,7 +150,7 @@ class _TvPageState extends State<TvPage> {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is LoadedTvData) {
+                  } else if (state is TvHasData) {
                     final result = state.result;
                     return TvList(result);
                   } else {
@@ -170,7 +170,7 @@ class _TvPageState extends State<TvPage> {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is LoadedTvData) {
+                  } else if (state is TvHasData) {
                     final result = state.result;
                     return TvList(result);
                   } else {

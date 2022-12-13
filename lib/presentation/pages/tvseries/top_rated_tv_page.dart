@@ -18,7 +18,7 @@ class _TopRatedTvPageState extends State<TopRatedTvPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => context.read<TopRatedTvseriesBloc>().add(const FetchTvseriesData()));
+    Future.microtask(() => context.read<TopRatedTvseriesBloc>().add(const FetchTvSeriesData()));
   }
 
   @override
@@ -35,7 +35,7 @@ class _TopRatedTvPageState extends State<TopRatedTvPage> {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is LoadedTvData) {
+            } else if (state is TvHasData) {
               final result = state.result;
               return ListView.builder(
                 itemBuilder: (context, index) {

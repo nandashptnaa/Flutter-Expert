@@ -15,42 +15,42 @@ import 'tv_popular_bloc_test.mocks.dart';
 @GenerateMocks([GetTvSeriesRecommendations])
 void main() {
   late MockGetPopularTvseries mockGetPopularTvseries;
-  late PopularTvseriesBloc popularBloc;
+  late PopularTvBloc tvPopularBloc;
 
   setUp(() {
     mockGetPopularTvseries = MockGetPopularTvseries();
-    popularBloc = PopularTvseriesBloc(mockGetPopularTvseries);
+    tvPopularBloc = PopularTvBloc(mockGetPopularTvseries);
   });
 
   test('initial state should be empty', () {
-    expect(popularBloc.state, EmptyTvData());
+    expect(tvPopularBloc.state, EmptyTvData());
   });
 
-  blocTest<PopularTvseriesBloc, TvSeriesState>(
+  blocTest<PopularTvBloc, TvSeriesState>(
     'Should emit when data is gotten successfully',
     build: () {
       when(mockGetPopularTvseries.execute())
           .thenAnswer((_) async => Right(testTvSeriesList));
-      return popularBloc;
+      return tvPopularBloc;
     },
-    act: (bloc) => bloc.add(FetchTvseriesData()),
+    act: (bloc) => bloc.add(FetchTvSeriesData()),
     expect: () => [
       LoadingTvData(),
-      LoadedTvData(testTvSeriesList),
+      TvHasData(testTvSeriesList),
     ],
     verify: (bloc) {
       verify(mockGetPopularTvseries.execute());
     },
   );
 
-  blocTest<PopularTvseriesBloc, TvSeriesState>(
+  blocTest<PopularTvBloc, TvSeriesState>(
     'Should emit when get popular tv is unsuccessful',
     build: () {
       when(mockGetPopularTvseries.execute())
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
-      return popularBloc;
+      return tvPopularBloc;
     },
-    act: (bloc) => bloc.add(FetchTvseriesData()),
+    act: (bloc) => bloc.add(FetchTvSeriesData()),
     expect: () => [
       LoadingTvData(),
       ErrorTvData('Server Failure'),
@@ -60,14 +60,14 @@ void main() {
     },
   );
 
-  blocTest<PopularTvseriesBloc, TvSeriesState>(
+  blocTest<PopularTvBloc, TvSeriesState>(
     'Should emit when get popular tv is unsuccessful',
     build: () {
       when(mockGetPopularTvseries.execute()).thenAnswer(
           (_) async => Left(ConnectionFailure('Connection Failure')));
-      return popularBloc;
+      return tvPopularBloc;
     },
-    act: (bloc) => bloc.add(FetchTvseriesData()),
+    act: (bloc) => bloc.add(FetchTvSeriesData()),
     expect: () => [
       LoadingTvData(),
       ErrorTvData('Connection Failure'),
@@ -77,14 +77,14 @@ void main() {
     },
   );
 
-  blocTest<PopularTvseriesBloc, TvSeriesState>(
+  blocTest<PopularTvBloc, TvSeriesState>(
     'Should emit when get popular tv is unsuccessful',
     build: () {
       when(mockGetPopularTvseries.execute()).thenAnswer(
           (_) async => Left(DatabaseFailure('Database Failure')));
-      return popularBloc;
+      return tvPopularBloc;
     },
-    act: (bloc) => bloc.add(FetchTvseriesData()),
+    act: (bloc) => bloc.add(FetchTvSeriesData()),
     expect: () => [
       LoadingTvData(),
       ErrorTvData('Database Failure'),

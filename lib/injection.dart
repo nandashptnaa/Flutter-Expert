@@ -1,4 +1,4 @@
-import 'package:ditonton/common/ssl_pinning.dart';
+import 'package:ditonton/ssl/http_ssl.dart';
 import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/datasources/db/database_helper_tv.dart';
 import 'package:ditonton/data/datasources/tv_local_data_source.dart';
@@ -81,7 +81,7 @@ void init() {
   locator.registerFactory(
     () => TvDetailBloc(
       getTvseriesDetail: locator(),
-      getWatchListStatus: locator(),
+      getTvWatchListStatus: locator(),
       saveWatchlist: locator(),
       removeWatchlist: locator(),
     ),
@@ -90,7 +90,7 @@ void init() {
     () => RecommendationTvseriesBloc(locator()),
   );
   locator.registerFactory(
-    () => PopularTvseriesBloc(locator()),
+    () => PopularTvBloc(locator()),
   );
   locator.registerFactory(
     () => TopRatedTvseriesBloc(locator()),
@@ -160,6 +160,6 @@ void init() {
   locator.registerLazySingleton<DatabaseHelperTvSeries>(() => DatabaseHelperTvSeries());
   
   
-  locator.registerLazySingleton(() => HttpSSLPinning.client);
+  locator.registerLazySingleton(() => HttpSSL.client);
   // locator.registerLazySingleton(() => http.Client());
 }

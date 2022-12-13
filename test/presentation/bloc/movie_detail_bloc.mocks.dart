@@ -15,16 +15,11 @@ import 'package:ditonton/domain/usecases/movie/get_watchlist_status.dart' as _i8
 import 'package:ditonton/domain/usecases/movie/remove_watchlist.dart' as _i10;
 import 'package:ditonton/domain/usecases/movie/save_watchlist.dart' as _i9;
 
-// ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
 // ignore_for_file: comment_references
-// ignore_for_file: implementation_imports
-// ignore_for_file: invalid_use_of_visible_for_testing_member
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: unnecessary_parenthesis
-// ignore_for_file: camel_case_types
-// ignore_for_file: subtype_of_sealed_class
 
 class _FakeMovieRepository_0 extends _i1.SmartFake
     implements _i2.MovieRepository {

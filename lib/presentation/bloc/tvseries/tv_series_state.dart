@@ -19,9 +19,9 @@ class ErrorTvData extends TvSeriesState {
   List<Object> get props => [message];
 }
 
-class LoadedTvData extends TvSeriesState {
+class TvHasData extends TvSeriesState {
   final List<TvSeries> result;
-  LoadedTvData(this.result);
+  TvHasData(this.result);
 
   @override
   List<Object> get props => [result];

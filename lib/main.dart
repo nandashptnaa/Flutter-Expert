@@ -1,5 +1,5 @@
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/ssl_pinning.dart';
+import 'package:ditonton/ssl/http_ssl.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/firebase_options.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_detail_bloc.dart';
@@ -34,7 +34,7 @@ import 'package:ditonton/injection.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();  
-  await HttpSSLPinning.init();
+  await HttpSSL.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -71,8 +71,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.locator<SearchMovieBloc>(),
         ),
-
-        // Tvseries
+        
         BlocProvider(
           create: (_) => di.locator<TvSeriesAiringTodayBloc>(),
         ),
@@ -89,7 +88,7 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TopRatedTvseriesBloc>(),
         ),
         BlocProvider(
-          create: (_) => di.locator<PopularTvseriesBloc>(),
+          create: (_) => di.locator<PopularTvBloc>(),
         ),
         BlocProvider(
           create: (_) => di.locator<WatchlistTvseriesBloc>(),

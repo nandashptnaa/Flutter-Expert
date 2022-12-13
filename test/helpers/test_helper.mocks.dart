@@ -46,7 +46,7 @@ class _FakeEither<L, R> extends _i1.Fake implements _i2.Either<L, R> {}
 class _FakeMovieDetailResponse extends _i1.Fake implements _i3.MovieDetailResponse {
 }
 
-class _FakeTvSeriesDetailModel extends _i1.Fake implements _i28.TvDetailResponse {}
+class _FakeTvSeriesDetailModel extends _i1.Fake implements _i28.TvDetailResponseModel {}
 
 class _FakeResponse extends _i1.Fake implements _i4.Response {}
 
@@ -256,10 +256,10 @@ class MockRemoteDataSource extends _i1.Mock
                   Future<_i3.MovieDetailResponse>.value(_FakeMovieDetailResponse()))
           as _i7.Future<_i3.MovieDetailResponse>);
   @override
-  _i7.Future<_i28.TvDetailResponse> getTvSeriesDetail(int? id) => (super.noSuchMethod(
+  _i7.Future<_i28.TvDetailResponseModel> getTvSeriesDetail(int? id) => (super.noSuchMethod(
           Invocation.method(#getTvSeriesDetail, [id]),
-          returnValue: Future<_i28.TvDetailResponse>.value(_FakeTvSeriesDetailModel()))
-      as _i7.Future<_i28.TvDetailResponse>);
+          returnValue: Future<_i28.TvDetailResponseModel>.value(_FakeTvSeriesDetailModel()))
+      as _i7.Future<_i28.TvDetailResponseModel>);
   @override
   _i7.Future<List<_i24.TvSeriesModel>> getAiringTodayTvSeries() =>
       (super.noSuchMethod(Invocation.method(#getAiringTodayTvSeries, []),

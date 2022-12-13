@@ -18,7 +18,7 @@ class _AiringTodayPageState extends State<AiringTodayPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.microtask(() => context.read<TvSeriesAiringTodayBloc>().add(const FetchTvseriesData()));
+    Future.microtask(() => context.read<TvSeriesAiringTodayBloc>().add(const FetchTvSeriesData()));
   }
 
   @override
@@ -35,7 +35,7 @@ class _AiringTodayPageState extends State<AiringTodayPage> {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (state is LoadedTvData) {
+              } else if (state is TvHasData) {
                 final result = state.result;
                 return ListView.builder(
                   itemBuilder: (context, index) {

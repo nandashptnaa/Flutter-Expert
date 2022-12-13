@@ -10,16 +10,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class TvDetailBloc
     extends Bloc<TvDetailEvent, TvDetailState> {
   final GetTvSeriesDetail getTvseriesDetail;
-  final GetWatchlistStatusTvSeries getWatchListStatus;
+  final GetWatchlistStatusTvSeries getTvWatchListStatus;
   final SaveWatchlistTvSeries saveWatchlist;
   final RemoveWatchlistTvSeries removeWatchlist;
 
-  static const watchlistAddSuccessMessage = 'Added to Watchlist';
-  static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
+  static const watchlistAddSuccessMessage = 'Added to Tv Series Watchlist';
+  static const watchlistRemoveSuccessMessage = 'Removed from Tv Series Watchlist';
 
   TvDetailBloc({
     required this.getTvseriesDetail,
-    required this.getWatchListStatus,
+    required this.getTvWatchListStatus,
     required this.saveWatchlist,
     required this.removeWatchlist,
   }) : super(TvDetailState.initial()) {
@@ -62,7 +62,7 @@ class TvDetailBloc
       add(LoadTvWatchlistStatus(event.tvseriesDetail.id));
     });
     on<LoadTvWatchlistStatus>((event, emit) async {
-      final result = await getWatchListStatus.execute(event.id);
+      final result = await getTvWatchListStatus.execute(event.id);
       emit(state.copyWith(isAddedToWatchlist: result));
     });
   }

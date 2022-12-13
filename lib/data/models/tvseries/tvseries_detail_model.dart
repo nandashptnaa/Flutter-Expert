@@ -4,8 +4,8 @@ import 'package:ditonton/data/models/tvseries/season_model.dart';
 import 'package:ditonton/domain/entities/tvseries/tvseries_detail.dart';
 import 'package:equatable/equatable.dart';
 
-class TvDetailResponse extends Equatable {
-  TvDetailResponse({
+class TvDetailResponseModel extends Equatable {
+  TvDetailResponseModel({
 
     required this.seasons,
     required this.adult,
@@ -57,7 +57,7 @@ class TvDetailResponse extends Equatable {
   double voteAverage;
   int voteCount;
 
-  factory TvDetailResponse.fromJson(Map<String, dynamic> json) => TvDetailResponse(
+  factory TvDetailResponseModel.fromJson(Map<String, dynamic> json) => TvDetailResponseModel(
     seasons: List<TvSeasonModel>.from(json["seasons"].map((x) => TvSeasonModel.fromJson(x))),
     genres: List<GenreModel>.from(json["genres"].map((x) => GenreModel.fromJson(x))),
     adult: json["adult"],

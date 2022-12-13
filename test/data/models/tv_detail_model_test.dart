@@ -9,24 +9,16 @@ import '../../json_reader.dart';
 void main() {
   group('fromJson', () {
     test('should return a valid model from JSON', () async {
-      // arrange
       final Map<String, dynamic> jsonMap =
           json.decode(readJson('dummy_data/tv_detail.json'));
-      // act
-      final result = TvDetailResponse.fromJson(jsonMap);
-      // assert
+      final result = TvDetailResponseModel.fromJson(jsonMap);
       expect(result, testTvDetailResponse);
     });
   });
 
   group('toJson', () {
     test('should return a JSON map containing proper data', () async {
-      // arrange
-
-      // act
       final result = testTvDetailResponse.toJson();
-
-      // assert
       expect(result, testTvDetailResponseMap);
     });
   });

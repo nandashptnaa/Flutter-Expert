@@ -20,15 +20,11 @@ void main(){
     originalLanguage: 'en',
     originCountry: ["US"],
   );
-  final tvResponseModel = TvResponse(tvList: <TvSeriesModel>[tvSeriesModel]);
+  final tvResponseModel = TvResponseModel(tvList: <TvSeriesModel>[tvSeriesModel]);
 
   group('toJson', () {
     test('should return a JSON map containing proper data', () async {
-      ///arrange
-
-      ///act
       final result = tvResponseModel.toJson();
-      ///assert
       final expectedJsonMap = {
         "results": [
           {
@@ -53,12 +49,9 @@ void main(){
 
   group('fromJson', () {
     test('should return a valid model from JSON', () async {
-      ///arrange
       final Map<String, dynamic> jsonMap =
       json.decode(readJson('dummy_data/on_the_air.json'));
-      //act
-      final result = TvResponse.fromJson(jsonMap);
-      ///assert
+      final result = TvResponseModel.fromJson(jsonMap);
       expect(result, tvResponseModel);
     });
   });

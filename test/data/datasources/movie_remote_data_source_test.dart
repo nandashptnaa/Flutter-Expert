@@ -207,7 +207,7 @@ void main() {
 
   group('get tv detail', () {
     final tId = 1;
-    final tvDetail = TvDetailResponse.fromJson(json.decode(readJson('dummy_data/tv_detail.json')));
+    final tvDetail = TvDetailResponseModel.fromJson(json.decode(readJson('dummy_data/tv_detail.json')));
 
     test('should return Tv Series Detail Table when data is found', () async {
       ///arrange
@@ -229,7 +229,7 @@ void main() {
   });
 
   group('get airing today', () {
-    final tvList = TvResponse.fromJson(json.decode(readJson('dummy_data/airing_today.json'))).tvList;
+    final tvList = TvResponseModel.fromJson(json.decode(readJson('dummy_data/airing_today.json'))).tvList;
 
     test('should return Tv Series airing today when data is found', () async {
       ///arrange
@@ -251,7 +251,7 @@ void main() {
   });
 
   group('get on the air', () {
-    final tvList = TvResponse.fromJson(json.decode(readJson('dummy_data/on_the_air.json'))).tvList;
+    final tvList = TvResponseModel.fromJson(json.decode(readJson('dummy_data/on_the_air.json'))).tvList;
 
     test('should return Tv Series on the air when data is found', () async {
       ///arrange
@@ -273,7 +273,7 @@ void main() {
   });
 
   group('get popular tv series', () {
-    final tvList = TvResponse.fromJson(json.decode(readJson('dummy_data/tv_popular.json'))).tvList;
+    final tvList = TvResponseModel.fromJson(json.decode(readJson('dummy_data/tv_popular.json'))).tvList;
 
     test('should return Tv Series popular when data is found', () async {
       ///arrange
@@ -295,7 +295,7 @@ void main() {
   });
 
   group('get top rated tv series', () {
-    final tvList = TvResponse.fromJson(json.decode(readJson('dummy_data/tv_top_rated.json'))).tvList;
+    final tvList = TvResponseModel.fromJson(json.decode(readJson('dummy_data/tv_top_rated.json'))).tvList;
 
     test('should return Tv Series top rated when data is found', () async {
       ///arrange
@@ -316,7 +316,7 @@ void main() {
     });
 
     group('search tv', () {
-    final tSearchResult = TvResponse.fromJson(json.decode(readJson('dummy_data/tv_search.json'))).tvList;
+    final tSearchResult = TvResponseModel.fromJson(json.decode(readJson('dummy_data/tv_search.json'))).tvList;
     final tQuery = 'Spiderman';
 
     test('should return Tv Series when data is found', () async {

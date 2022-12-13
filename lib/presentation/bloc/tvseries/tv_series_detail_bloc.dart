@@ -11,8 +11,8 @@ class TvDetailBloc
     extends Bloc<TvDetailEvent, TvDetailState> {
   final GetTvSeriesDetail getTvseriesDetail;
   final GetWatchlistStatusTvSeries getTvWatchListStatus;
-  final SaveWatchlistTvSeries saveWatchlist;
-  final RemoveWatchlistTvSeries removeWatchlist;
+  final SaveWatchlistTvSeries saveTvWatchlist;
+  final RemoveWatchlistTvSeries removeTvWatchlist;
 
   static const watchlistAddSuccessMessage = 'Added to Tv Series Watchlist';
   static const watchlistRemoveSuccessMessage = 'Removed from Tv Series Watchlist';
@@ -20,8 +20,8 @@ class TvDetailBloc
   TvDetailBloc({
     required this.getTvseriesDetail,
     required this.getTvWatchListStatus,
-    required this.saveWatchlist,
-    required this.removeWatchlist,
+    required this.saveTvWatchlist,
+    required this.removeTvWatchlist,
   }) : super(TvDetailState.initial()) {
     on<FetchTvseriesDetailById>((event, emit) async {
       emit(state.copyWith(tvState: RequestState.Loading));
@@ -40,7 +40,7 @@ class TvDetailBloc
       );
     });
     on<AddTvWatchlist>((event, emit) async {
-      final result = await saveWatchlist.execute(event.tvseriesDetail);
+      final result = await saveTvWatchlist.execute(event.tvseriesDetail);
 
       result.fold((failure) {
         emit(state.copyWith(watchlistTvMessage: failure.message));
@@ -48,10 +48,10 @@ class TvDetailBloc
         emit(state.copyWith(watchlistTvMessage: successMessage));
       });
 
-      add(LoadTvWatchlistStatus(event.tvseriesDetail.id));
+      add(TvWatchlistStatusHasData(event.tvseriesDetail.id));
     });
     on<RemoveTvWatchlist>((event, emit) async {
-      final result = await removeWatchlist.execute(event.tvseriesDetail);
+      final result = await removeTvWatchlist.execute(event.tvseriesDetail);
 
       result.fold((failure) {
         emit(state.copyWith(watchlistTvMessage: failure.message));
@@ -59,9 +59,9 @@ class TvDetailBloc
         emit(state.copyWith(watchlistTvMessage: successMessage));
       });
 
-      add(LoadTvWatchlistStatus(event.tvseriesDetail.id));
+      add(TvWatchlistStatusHasData(event.tvseriesDetail.id));
     });
-    on<LoadTvWatchlistStatus>((event, emit) async {
+    on<TvWatchlistStatusHasData>((event, emit) async {
       final result = await getTvWatchListStatus.execute(event.id);
       emit(state.copyWith(isAddedToWatchlist: result));
     });

@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TvDetailBloc>(),
         ),
         BlocProvider(
-          create: (_) => di.locator<RecommendationTvseriesBloc>(),
+          create: (_) => di.locator<RecommendationTvSeriesBloc>(),
         ),
         BlocProvider(
           create: (_) => di.locator<TopRatedTvseriesBloc>(),

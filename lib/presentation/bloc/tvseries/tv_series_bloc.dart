@@ -106,13 +106,13 @@ class WatchlistTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
   }
 }
 
-class RecommendationTvseriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
+class RecommendationTvSeriesBloc extends Bloc<TvSeriesEvent, TvSeriesState> {
   final GetTvSeriesRecommendations _getTvSeriesRecommendations;
 
-  RecommendationTvseriesBloc(
+  RecommendationTvSeriesBloc(
     this._getTvSeriesRecommendations,
   ) : super(EmptyTvData()) {
-    on<FetchTvSeriesDataWithId>((event, emit) async {
+    on<FetchTvSeriesById>((event, emit) async {
       final id = event.id;
       emit(LoadingTvData());
       final result = await _getTvSeriesRecommendations.execute(id);

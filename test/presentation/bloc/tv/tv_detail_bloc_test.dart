@@ -24,21 +24,21 @@ import 'tv_detail_bloc_test.mocks.dart';
 ])
 void main() {
   late TvDetailBloc detailBloc;
-  late MockGetTvseriesDetail mockGetTvseriesDetail;
-  late MockGetWatchListStatusTvseries mockGetWatchlistStatus;
-  late MockSaveWatchlistTvseries mockSaveWatchlist;
+  late MockGetTvSeriesDetail mockGetTvSeriesDetail;
+  late MockGetWatchListStatusTvSeries mockGetWatchListStatusTvSeries;
+  late MockSaveWatchlistTvSeries mockSaveWatchlistTvSeries;
   late MockRemoveWatchlistTvseries mockRemoveWatchlist;
 
   setUp(() {
-    mockGetTvseriesDetail = MockGetTvseriesDetail();
-    mockGetWatchlistStatus = MockGetWatchListStatusTvseries();
-    mockSaveWatchlist = MockSaveWatchlistTvseries();
+    mockGetTvSeriesDetail = MockGetTvSeriesDetail();
+    mockGetWatchListStatusTvSeries = MockGetWatchListStatusTvSeries();
+    mockSaveWatchlistTvSeries = MockSaveWatchlistTvSeries();
     mockRemoveWatchlist = MockRemoveWatchlistTvseries();
     detailBloc = TvDetailBloc(
-      getTvseriesDetail: mockGetTvseriesDetail,
-      getTvWatchListStatus: mockGetWatchlistStatus,
-      saveWatchlist: mockSaveWatchlist,
-      removeWatchlist: mockRemoveWatchlist,
+      getTvseriesDetail: mockGetTvSeriesDetail,
+      getTvWatchListStatus: mockGetWatchListStatusTvSeries,
+      saveTvWatchlist: mockSaveWatchlistTvSeries,
+      removeTvWatchlist: mockRemoveWatchlist,
     );
   });
 
@@ -52,7 +52,7 @@ void main() {
     blocTest<TvDetailBloc, TvDetailState>(
       'Should emit when data is gotten successfully',
       build: () {
-        when(mockGetTvseriesDetail.execute(tId))
+        when(mockGetTvSeriesDetail.execute(tId))
             .thenAnswer((_) async => Right(testTvSeriesDetail));
         return detailBloc;
       },
@@ -65,14 +65,14 @@ void main() {
         ),
       ],
       verify: (_) {
-        verify(mockGetTvseriesDetail.execute(tId));
+        verify(mockGetTvSeriesDetail.execute(tId));
       },
     );
 
     blocTest<TvDetailBloc, TvDetailState>(
       'Should emit when get top rated tv is unsuccessful',
       build: () {
-        when(mockGetTvseriesDetail.execute(tId)).thenAnswer(
+        when(mockGetTvSeriesDetail.execute(tId)).thenAnswer(
             (_) async => Left(ServerFailure('Server Failure')));
         return detailBloc;
       },
@@ -84,7 +84,7 @@ void main() {
         ),
       ],
       verify: (_) {
-        verify(mockGetTvseriesDetail.execute(tId));
+        verify(mockGetTvSeriesDetail.execute(tId));
       },
     );
   });
@@ -93,10 +93,10 @@ void main() {
     blocTest<TvDetailBloc, TvDetailState>(
       'Get Watchlist tv series Status',
       build: () {
-        when(mockGetWatchlistStatus.execute(tId)).thenAnswer((_) async => true);
+        when(mockGetWatchListStatusTvSeries.execute(tId)).thenAnswer((_) async => true);
         return detailBloc;
       },
-      act: (bloc) => bloc.add(LoadTvWatchlistStatus(tId)),
+      act: (bloc) => bloc.add(TvWatchlistStatusHasData(tId)),
       expect: () => [
         TvDetailState.initial().copyWith(
           tvseriesDetail: testTvSeriesDetail,
@@ -104,16 +104,16 @@ void main() {
         ),
       ],
       verify: (_) {
-        verify(mockGetWatchlistStatus.execute(tId));
+        verify(mockGetWatchListStatusTvSeries.execute(tId));
       },
     );
 
     blocTest<TvDetailBloc, TvDetailState>(
       'Should execute save watchlist tv series when function called',
       build: () {
-        when(mockSaveWatchlist.execute(testTvSeriesDetail))
+        when(mockSaveWatchlistTvSeries.execute(testTvSeriesDetail))
             .thenAnswer((_) async => Right('Success'));
-        when(mockGetWatchlistStatus.execute(testTvSeriesDetail.id))
+        when(mockGetWatchListStatusTvSeries.execute(testTvSeriesDetail.id))
             .thenAnswer((_) async => true);
         return detailBloc;
       },
@@ -129,7 +129,7 @@ void main() {
             watchlistTvMessage: 'Success'),
       ],
       verify: (_) {
-        verify(mockSaveWatchlist.execute(testTvSeriesDetail));
+        verify(mockSaveWatchlistTvSeries.execute(testTvSeriesDetail));
       },
     );
 
@@ -138,7 +138,7 @@ void main() {
       build: () {
         when(mockRemoveWatchlist.execute(testTvSeriesDetail))
             .thenAnswer((_) async => Right('Removed'));
-        when(mockGetWatchlistStatus.execute(testTvSeriesDetail.id))
+        when(mockGetWatchListStatusTvSeries.execute(testTvSeriesDetail.id))
             .thenAnswer((_) async => false);
         return detailBloc;
       },
@@ -157,9 +157,9 @@ void main() {
     blocTest<TvDetailBloc, TvDetailState>(
       'should update watchlist message when add watchlist tv series failed',
       build: () {
-        when(mockSaveWatchlist.execute(testTvSeriesDetail)).thenAnswer(
+        when(mockSaveWatchlistTvSeries.execute(testTvSeriesDetail)).thenAnswer(
             (_) async => Left(ServerFailure('Server Failure')));
-        when(mockGetWatchlistStatus.execute(testTvSeriesDetail.id))
+        when(mockGetWatchListStatusTvSeries.execute(testTvSeriesDetail.id))
             .thenAnswer((_) async => false);
         return detailBloc;
       },
@@ -171,7 +171,7 @@ void main() {
             watchlistTvMessage: 'Server Failure'),
       ],
       verify: (_) {
-        verify(mockSaveWatchlist.execute(testTvSeriesDetail));
+        verify(mockSaveWatchlistTvSeries.execute(testTvSeriesDetail));
       },
     );
 
@@ -180,7 +180,7 @@ void main() {
       build: () {
         when(mockRemoveWatchlist.execute(testTvSeriesDetail)).thenAnswer(
             (_) async => Left(ServerFailure('Server Failure')));
-        when(mockGetWatchlistStatus.execute(testTvSeriesDetail.id))
+        when(mockGetWatchListStatusTvSeries.execute(testTvSeriesDetail.id))
             .thenAnswer((_) async => false);
         return detailBloc;
       },

@@ -11,9 +11,9 @@ class FetchTvSeriesData extends TvSeriesEvent {
   List<Object> get props => [];
 }
 
-class FetchTvSeriesDataWithId extends TvSeriesEvent {
+class FetchTvSeriesById extends TvSeriesEvent {
   final int id;
-  const FetchTvSeriesDataWithId(this.id);
+  const FetchTvSeriesById(this.id);
 
   @override
   List<Object> get props => [id];

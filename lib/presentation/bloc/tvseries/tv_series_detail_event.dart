@@ -29,9 +29,9 @@ class RemoveTvWatchlist extends TvDetailEvent {
   List<Object> get props => [tvseriesDetail];
 }
 
-class LoadTvWatchlistStatus extends TvDetailEvent {
+class TvWatchlistStatusHasData extends TvDetailEvent {
   final int id;
-  LoadTvWatchlistStatus(this.id);
+  TvWatchlistStatusHasData(this.id);
 
   @override
   List<Object> get props => [id];

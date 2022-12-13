@@ -30,10 +30,10 @@ class _TvDetailPageState extends State<TvDetailPage> {
     super.initState();
     Future.microtask(() {
       context
-          .read<RecommendationTvseriesBloc>()
-          .add(FetchTvSeriesDataWithId(widget.id));
+          .read<RecommendationTvSeriesBloc>()
+          .add(FetchTvSeriesById(widget.id));
       context.read<TvDetailBloc>().add(FetchTvseriesDetailById(widget.id));
-      context.read<TvDetailBloc>().add(LoadTvWatchlistStatus(widget.id));
+      context.read<TvDetailBloc>().add(TvWatchlistStatusHasData(widget.id));
     });
   }
 
@@ -183,7 +183,7 @@ class ContentDetails extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            BlocBuilder<RecommendationTvseriesBloc,
+                            BlocBuilder<RecommendationTvSeriesBloc,
                                 TvSeriesState>(
                               builder: (context, state) {
                                 if (state is LoadingTvData) {

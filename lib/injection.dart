@@ -82,12 +82,12 @@ void init() {
     () => TvDetailBloc(
       getTvseriesDetail: locator(),
       getTvWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
+      saveTvWatchlist: locator(),
+      removeTvWatchlist: locator(),
     ),
   );
   locator.registerFactory(
-    () => RecommendationTvseriesBloc(locator()),
+    () => RecommendationTvSeriesBloc(locator()),
   );
   locator.registerFactory(
     () => PopularTvBloc(locator()),

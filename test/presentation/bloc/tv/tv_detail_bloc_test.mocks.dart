@@ -37,8 +37,8 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
 /// A class which mocks [GetTvseriesDetail].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetTvseriesDetail extends _i1.Mock implements _i4.GetTvSeriesDetail {
-  MockGetTvseriesDetail() {
+class MockGetTvSeriesDetail extends _i1.Mock implements _i4.GetTvSeriesDetail {
+  MockGetTvSeriesDetail() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -61,9 +61,9 @@ class MockGetTvseriesDetail extends _i1.Mock implements _i4.GetTvSeriesDetail {
 /// A class which mocks [GetWatchListStatusTvseries].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetWatchListStatusTvseries extends _i1.Mock
+class MockGetWatchListStatusTvSeries extends _i1.Mock
     implements _i8.GetWatchlistStatusTvSeries {
-  MockGetWatchListStatusTvseries() {
+  MockGetWatchListStatusTvSeries() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -82,9 +82,9 @@ class MockGetWatchListStatusTvseries extends _i1.Mock
 /// A class which mocks [SaveWatchlistTvseries].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSaveWatchlistTvseries extends _i1.Mock
+class MockSaveWatchlistTvSeries extends _i1.Mock
     implements _i9.SaveWatchlistTvSeries {
-  MockSaveWatchlistTvseries() {
+  MockSaveWatchlistTvSeries() {
     _i1.throwOnMissingStub(this);
   }
 
